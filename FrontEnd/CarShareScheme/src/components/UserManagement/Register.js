@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom'
 import { createNewUser } from "../../actions/securityActions";
 import * as PropTypes from 'prop-types'
 import { connect } from "react-redux";
@@ -65,6 +64,26 @@ validate = () => {
 }
 
 componentDidMount() {
+  const link1 = document.createElement("link")
+  link1.rel="stylesheet"
+  link1.href="./CssFiles/SignUp.css" 
+  document.body.appendChild(link1)
+
+  const link2 = document.createElement("link")
+  link2.rel="stylesheet"
+  link2.href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+  link2.integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+  link2.crossorigin="anonymous"
+  document.body.appendChild(link2)
+
+  const link3 = document.createElement("link")
+  link3.rel="stylesheet"
+  link3.href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" 
+  document.body.appendChild(link3)
+
+
+
+
   if(this.props.errors.usernameError){
       let usernameError = this.props.errors.usernameError
       this.setState({usernameError})
@@ -96,29 +115,31 @@ onSubmit(e){
 render() {
   return (   
     <body>
-      <div class="login">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="loginmain signup">
-                        <div class="user-img">
-                            <img src={require("../Layout/images/user.png")}></img>
-                        </div>
-                        <form onSubmit={this.onSubmit}>
-                        <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.onChange}></input>
-                        <p>{this.state.usernameError}</p>
-                        <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.onChange}></input>
-	                      <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}></input>
-                        <p>{this.state.passwordError}</p>
-	                      <input type="password" name="confirmPassword" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.onChange}></input>
-                        <p>{this.state.confirmPasswordError}</p>
-                        <input type="submit" name="" value ="Submit"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+      <div class="main-w3layouts wrapper">
+          <div class="main-agileinfo">
+              <div class="agileits-top">
+                  <form onSubmit={this.onSubmit}>
+                    <h1 class="mb-1">SignUp </h1>
+                      <input class="text" type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.onChange}/>
+                      <p>{this.state.usernameError}</p>
+                      <input class="text email" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.onChange}/>
+                      <input class="text" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}/>
+                      <p>{this.state.passwordError}</p>
+                      <input class="text w3lpass" type="password" name="confirmPassword" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.onChange}/>
+                      <p>{this.state.confirmPasswordError}</p>
+                      <div class="wthree-text">
+                          <label class="anim">
+                              <input type="checkbox" class="checkbox" required=""/>
+                              <span>I Agree To The Terms & Conditions</span>
+                          </label>
+                          <div class="clear"> </div>
+                      </div>
+                      <input type="submit" name="" value ="Sign up" class="login_btn mt-3"/>
+                  </form>
+                  <p >Already have an Account? <a href="/Login" class="links"> Login Now!</a></p>
+              </div>
+          </div>
+      </div>
     </body>
 
   )

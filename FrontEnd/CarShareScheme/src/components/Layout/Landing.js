@@ -1,545 +1,573 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import './asset/css/all.css'
-import './asset/css/bootstrap.min.css'
-import './asset/css/owl.carousel.min.css'
-import './asset/css/owl.theme.default.css'
-import './asset/css/magnific-popup.css'
-import './asset/css/style.css'
-import './asset/css/responsive.css'
-import './asset/css/responsive.css'
-
+import React, { Component } from 'react'
+import { getUser } from "../../actions/userActions";
+import store from "../../store"
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from 'react-router';
+import { logout } from '../../actions/securityActions';
+import { Link } from 'react-router-dom';
 
 class Landing extends Component {
+
+    constructor(props) {
+        super(props)
+        this.onChange = this.onChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+    }
+
+	onSubmit(e){
+        e.preventDefault();
+		this.props.logout();
+	}
+
+
+    onChange(e){
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    componentDidMount () {
+        console.log(store.getState())
+        if (store.getState().security.validToken) {
+            this.props.getUser(store.getState().security.user.id, this.props.history)
+        }
+        this.forceUpdate()
+
+        const link1 = document.createElement("link")
+        link1.rel="stylesheet"
+        link1.href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        link1.integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+        link1.crossorigin="anonymous"
+        document.body.appendChild(link1)
+
+        const link2 = document.createElement("link")
+        link2.rel="stylesheet"
+        link2.href="https://fonts.googleapis.com/css?family=Open+Sans" 
+        document.body.appendChild(link2)
+
+        const link3 = document.createElement("link")
+        link3.rel="stylesheet"
+        link3.href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+        document.body.appendChild(link3)
+
+        const script1 = document.createElement("script")
+        script1.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+        document.body.appendChild(script1)
+
+        const script2 = document.createElement("script")
+        script2.src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        document.body.appendChild(script2)
+
+        const link4 = document.createElement("link")
+        link4.rel="stylesheet"
+        link4.href="./CssFiles/mainPage.css" 
+        document.body.appendChild(link4)
+
+      }
   render() {
     return (
-      <body>
-      <div class="header">
-	<div class="container">
-		<div class="header-wrap">
-			<div class="row">
-				<div class="col-md-5">
-					<div class="header-form">
-						<form action="" method="">
-							<select>
-								<option>Select Your Car Type</option>
-								<option>Car One</option>
-								<option>Car One</option>
-								<option>Car One</option>
-								<option>Car One</option>
-								<option>Car One</option>
-							</select>
-							<div class="form-area d-flex justify-content-start">
-								<div class="pikeup ">
-									<p> <i class="fas fa-map-marker-alt"></i> Pike Up</p>
-								</div>
-								<div class="full-with"> 
-									<input type="text" name="" placeholder="Enter A City or Airport"></input>
-								</div>
-							</div>
-							<div class="label"><label>Need a Diffrrent drop or location?</label></div>
-							<div class="form-area d-flex justify-content-start">
-								<div class="pikeup">
-									<p> <i class="fas fa-map-marker-alt"></i> Pike Up</p>
-								</div>
-								<div class="timedate"><input type="date" name=""></input></div>
-								<div class="timedate"><input type="time" name=""></input></div>
-							</div>
-							<div class="form-area d-flex justify-content-start">
-								<div class="pikeup">
-									<p> <i class="fas fa-map-marker-alt"></i> Drop Off</p>
-								</div>
-								<div class="timedate"><input type="date" name=""></input></div>
-								<div class="timedate"><input type="time" name=""></input></div>
-							</div>
-							<div class="submit">
-								<input type="submit" name="" value="Continue Car Revulation"></input>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="col-md-7">
-					<div class="header-slider owl-carousel owl-theme">
-						<div class="slider-iteam">
-							<h1>Get 50% off Your Rental</h1>
-							<p>Plan Your Trip Now</p>
-							<img src={require("./images/car-01.png")}></img>
-						</div>
-						<div class="slider-iteam">
-							<h1>Get 40% off Your Rental</h1>
-							<p>Plan Your Trip Now</p>
-							<img src={require("./images/car-02.png")}></img>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Welcome To <span class="text-primary">Royal Cars</span></h1>
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <img class="w-75 mb-4" src={require("./img/about.png")} alt=""></img>
-                    <p>Justo et eos et ut takimata sed sadipscing dolore lorem, et elitr labore labore voluptua no rebum sed, stet voluptua amet sed elitr ea dolor dolores no clita. Dolores diam magna clita ea eos amet, amet rebum voluptua vero vero sed clita accusam takimata. Nonumy labore ipsum sea voluptua sea eos sit justo, no ipsum sanctus sanctus no et no ipsum amet, tempor labore est labore no. Eos diam eirmod lorem ut eirmod, ipsum diam sadipscing stet dolores elitr elitr eirmod dolore. Magna elitr accusam takimata labore, et at erat eirmod consetetur tempor eirmod invidunt est, ipsum nonumy at et.</p>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-lg-4 mb-2">
-                    <div class="d-flex align-items-center bg-light p-4 mb-4" style={{height: 150}}>
-                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary ml-n4 mr-4" style={{width: 100, height: 100 }}>
-                            <i class="fa fa-2x fa-headset text-secondary"></i>
+        <body>
+    <div class="super_container">
+        <header class="header">
+            <div class="top_bar">
+                <div class="container">       
+                    <div class="row">
+                        <div class="col d-flex flex-row">
+                            <div class="top_bar_contact_item">
+                                <div class="top_bar_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918577/phone.png" alt=""></img></div>+92 0000 132 000
+                            </div>
+                            <div class="top_bar_contact_item">
+                                <div class="top_bar_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918597/mail.png" alt=""></img></div><a href="mailto:fastsales@gmail.com">contact@gmail.com</a>
+                            </div>
+                            <div class="top_bar_content ml-auto">
+                                <div class="top_bar_menu">
+                                    <ul class="standard_dropdown top_bar_dropdown">
+                                        <li> <a href="#">English<i class="fas fa-chevron-down"></i></a>
+                                            <ul>
+                                                <li><a href="#">Italian</a></li>
+                                                <li><a href="#">Spanish</a></li>
+                                                <li><a href="#">Japanese</a></li>
+                                            </ul>
+                                        </li>
+                                        <li> <a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
+                                            <ul>
+                                                <li><a href="#">EUR Euro</a></li>
+                                                <li><a href="#">GBP British Pound</a></li>
+                                                <li><a href="#">JPY Japanese Yen</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {
+                store.getState().security.validToken ? 
+                <div class="top_bar_user">
+                                    <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></img></div>
+                                    <div><a href="/register">{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}</a></div>
+                                    <div><a href="/Login" onClick={e=>this.onSubmit(e)}>Log out</a></div>
+                                </div>
+                                :
+                                <div class="top_bar_user">
+                                    <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></img></div>
+                                    <div><a href="/register">Register</a></div>
+                                    <div><a href="/Login">Sign in</a></div>
+                                </div>
+                                }
+                            </div>
                         </div>
-                        <h4 class="text-uppercase m-0">24/7 Car Rental Support</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-2">
-                    <div class="d-flex align-items-center bg-secondary p-4 mb-4" style={{height: 150}}>
-                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary ml-n4 mr-4" style={{width: 100, height: 100}}>
-                            <i class="fa fa-2x fa-car text-secondary"></i>
-                        </div>
-                        <h4 class="text-light text-uppercase m-0">Car Reservation Anytime</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-2">
-                    <div class="d-flex align-items-center bg-light p-4 mb-4" style={{height: 150}}>
-                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary ml-n4 mr-4" style={{width: 100, height: 100}}>
-                            <i class="fa fa-2x fa-map-marker-alt text-secondary"></i>
-                        </div>
-                        <h4 class="text-uppercase m-0">Lots Of Pickup Locations</h4>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-	<div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Our Services</h1>
+            <div class="header_main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-3 col-3 order-1">
+                            <div class="logo_container">
+                                <div class="logo"><a href="/">CarShare</a></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right"></div>
+                        <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+                            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                                <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                                    <div class="wishlist_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918681/heart.png" alt=""></img></div>
+                                    <div class="wishlist_content">
+                                        <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                                        <div class="wishlist_count">10</div>
+                                    </div>
+                                </div>
+                                <div class="cart">
+                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                        <div class="cart_icon"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" alt=""></img>
+                                            <div class="cart_count"><span>3</span></div>
+                                        </div>
+                                        <div class="cart_content">
+                                            <div class="cart_text"><a href="#">Cart</a></div>
+                                            <div class="cart_price">$18500</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="main_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="main_nav_content d-flex flex-row">
+                                <div class="main_nav_menu">
+                                    <ul class="standard_dropdown main_nav_dropdown">
+                                        <li><a href="/" class=" nav-link active">Home<i class="fas fa-chevron-down"></i></a></li>
+                                        <li class="hassubs"> <a href="#">Car Brands<i class="fas fa-chevron-down"></i></a>
+                                            <ul>
+                                                <li> <a href="#" id="mercedes">Mercedes<i class="fas fa-chevron-down"></i></a>
+                                                </li>
+                                                <li><a href="#" id="toyota">Toyota<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="#" id="civic">Civic<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="#" id="honda">Honda<i class="fas fa-chevron-down"></i></a></li>
+                                            </ul>
+                                        </li>
+                                          
+                                        <li><a href="/blog">Blog<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a href="/ContactUs">Contact<i class="fas fa-chevron-down"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="menu_trigger_container ml-auto">
+                                    <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+                                        <div class="menu_burger">
+                                            <div class="menu_trigger_text">menu</div>
+                                            <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="page_menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="page_menu_content">
+                                <div class="page_menu_search">
+                                </div>
+                                <ul class="page_menu_nav">
+                                    <li class="page_menu_item has-children"> <a href="#">Language<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item has-children"> <a href="#">Currency<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item"> <a href="#">Home<i class="fa fa-angle-down"></i></a> </li>
+                                    <li class="page_menu_item has-children"> <a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
+                                            <li class="page_menu_item has-children"> <a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
+                                                <ul class="page_menu_selection">
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item has-children"> <a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item has-children"> <a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
+                                        <ul class="page_menu_selection">
+                                            <li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
+                                    <li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
+                                </ul>
+                                <div class="menu_contact">
+                                    <div class="menu_contact_item">
+                                        <div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></img></div>+38 068 005 3570
+                                    </div>
+                                    <div class="menu_contact_item">
+                                        <div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></img></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <div style={{height:700}}> 
+        <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="service-item d-flex flex-column justify-content-center px-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary ml-n4" style={{width: 80, height: 80}}>
-                                <i class="fa fa-2x fa-taxi text-secondary"></i>
-                            </div>
-                            <h1 class="display-2 text-white mt-n2 m-0">01</h1>
-                        </div>
-                        <h4 class="text-uppercase mb-3">Car Rental</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit sea sed</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="service-item active d-flex flex-column justify-content-center px-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary ml-n4" style={{width: 80, height: 80}}>
-                                <i class="fa fa-2x fa-money-check-alt text-secondary"></i>
-                            </div>
-                            <h1 class="display-2 text-white mt-n2 m-0">02</h1>
-                        </div>
-                        <h4 class="text-uppercase mb-3">Car Financing</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit sea sed</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="service-item d-flex flex-column justify-content-center px-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary ml-n4" style={{width: 80, height: 80}}>
-                                <i class="fa fa-2x fa-car text-secondary"></i>
-                            </div>
-                            <h1 class="display-2 text-white mt-n2 m-0">03</h1>
-                        </div>
-                        <h4 class="text-uppercase mb-3">Car Inspection</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit sea sed</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="service-item d-flex flex-column justify-content-center px-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary ml-n4" style={{width: 80,height: 80}}>
-                                <i class="fa fa-2x fa-cogs text-secondary"></i>
-                            </div>
-                            <h1 class="display-2 text-white mt-n2 m-0">04</h1>
-                        </div>
-                        <h4 class="text-uppercase mb-3">Auto Repairing</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit sea sed</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="service-item d-flex flex-column justify-content-center px-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary ml-n4" style={{width: 80, height: 80}}>
-                                <i class="fa fa-2x fa-spray-can text-secondary"></i>
-                            </div>
-                            <h1 class="display-2 text-white mt-n2 m-0">05</h1>
-                        </div>
-                        <h4 class="text-uppercase mb-3">Auto Painting</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit sea sed</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="service-item d-flex flex-column justify-content-center px-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary ml-n4" style={{width: 80, height: 80}}>
-                                <i class="fa fa-2x fa-pump-soap text-secondary"></i>
-                            </div>
-                            <h1 class="display-2 text-white mt-n2 m-0">06</h1>
-                        </div>
-                        <h4 class="text-uppercase mb-3">Auto Cleaning</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit sea sed</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-	<div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="bg-banner py-5 px-4 text-center">
-                <div class="py-5">
-                    <h1 class="display-1 text-uppercase text-primary mb-4">50% OFF</h1>
-                    <h1 class="text-uppercase text-light mb-4">Special Offer For New Members</h1>
-                    <p class="mb-4">Only for Sunday from 1st Jan to 30th Jan 2045</p>
-                    <a class="btn btn-primary mt-2 py-3 px-5" href="">Register Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-	<div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Find Your Car</h1>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src={require("./img/car-rent-1.png" )}></img>
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
+                <div class="col-md-12">
+                    <h2>Trending <b>Products</b></h2>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>   
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="row cars-list">
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Toyota</h4>
+                                            <p class="item-price"><span>$369</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary btn-view">View</a>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Honda civic</h4>
+                                            <p class="item-price"> <span>$230</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="#" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>		
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Mercedes</h4>
+                                            <p class="item-price"><span>$649</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>								
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Lenex</h4>
+                                            <p class="item-price"><span>$250.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item active mb-4">
-                        <img class="img-fluid mb-4" src={require("./img/car-rent-2.png")}></img>
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src={require("./img/car-rent-3.png")}></img>
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src={require("./img/car-rent-4.png")}></img>
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src={require("./img/car-rent-5.png")}></img>
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="rent-item mb-4">
-                        <img class="img-fluid mb-4" src={require("./img/car-rent-6.png")}></img>
-                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                        <div class="d-flex justify-content-center mb-4">
-                            <div class="px-2">
-                                <i class="fa fa-car text-primary mr-1"></i>
-                                <span>2015</span>
-                            </div>
-                            <div class="px-2 border-left border-right">
-                                <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>AUTO</span>
-                            </div>
-                            <div class="px-2">
-                                <i class="fa fa-road text-primary mr-1"></i>
-                                <span>25K</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-	<div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="row mx-0">
-                <div class="col-lg-6 px-0">
-                    <div class="px-5 bg-secondary d-flex align-items-center justify-content-between" style={{height: 350}}>
-                        <img class="img-fluid flex-shrink-0 ml-n5 w-50 mr-4" src={require("./img/banner-left.png" )}></img>
-                        <div class="text-right">
-                            <h3 class="text-uppercase text-light mb-3">Want to be driver?</h3>
-                            <p class="mb-4">Lorem justo sit sit ipsum eos lorem kasd, kasd labore</p>
-                            <a class="btn btn-primary py-2 px-4" href="">Start Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 px-0">
-                    <div class="px-5 bg-dark d-flex align-items-center justify-content-between" style={{height: 350}}>
-                        <div class="text-left">
-                            <h3 class="text-uppercase text-light mb-3">Looking for a car?</h3>
-                            <p class="mb-4">Lorem justo sit sit ipsum eos lorem kasd, kasd labore</p>
-                            <a class="btn btn-primary py-2 px-4" href="">Start Now</a>
-                        </div>
-                        <img class="img-fluid flex-shrink-0 mr-n5 w-50 ml-4" src={require("./img/banner-right.png")}></img>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-	<div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
-            <h1 class="display-4 text-uppercase text-center mb-5">Contact Us</h1>
-            <div class="row">
-                <div class="col-lg-7 mb-2">
-                    <div class="contact-form bg-light mb-4" style={{padding: 30}}>
-                        <form>
+                        <div class="item carousel-item">
                             <div class="row">
-                                <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Your Name" required="required"></input>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Toyota Camrey</h4>
+                                            <p class="item-price"><span>$269.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
                                 </div>
-                                <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="Your Email" required="required"></input>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Lenex</h4>
+                                            <p class="item-price"><span>$869.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Mercedes</h4>
+                                            <p class="item-price"><span>$499.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Honda Civic</h4>
+                                            <p class="item-price"><span>$569.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="#" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>						
+                            </div>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Honda Civic</h4>
+                                            <p class="item-price"><span>$349.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Honda Civic</h4>
+                                            <p class="item-price"><span>$250.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Lenex</h4>
+                                            <p class="item-price"> <span>$418.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
+                                </div>	
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>Mercedes</h4>
+                                            <p class="item-price"><span>$330.00</span></p>
+                                            <div class="star-rating">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                        </div>						
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control p-4" placeholder="Subject" required="required"></input>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control py-3 px-4" rows="5" placeholder="Message" required="required"></textarea>
-                            </div>
-                            <div>
-                                <button class="btn btn-primary py-3 px-5" type="submit">Send Message</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
+                    <a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 </div>
-                <div class="col-lg-5 mb-2">
-                    <div class="bg-secondary d-flex flex-column justify-content-center px-5 mb-4" style={{height: 435}}>
-                        <div class="d-flex mb-3">
-                            <i class="fa fa-2x fa-map-marker-alt text-primary flex-shrink-0 mr-3"></i>
-                            <div class="mt-n1">
-                                <h5 class="text-light">Head Office</h5>
-                                <p>123 Street, New York, USA</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="fa fa-2x fa-map-marker-alt text-primary flex-shrink-0 mr-3"></i>
-                            <div class="mt-n1">
-                                <h5 class="text-light">Branch Office</h5>
-                                <p>123 Street, New York, USA</p>
-                            </div>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="fa fa-2x fa-envelope-open text-primary flex-shrink-0 mr-3"></i>
-                            <div class="mt-n1">
-                                <h5 class="text-light">Customer Service</h5>
-                                <p>customer@example.com</p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <i class="fa fa-2x fa-envelope-open text-primary flex-shrink-0 mr-3"></i>
-                            <div class="mt-n1">
-                                <h5 class="text-light">Return & Refund</h5>
-                                <p class="m-0">refund@example.com</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-	<div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="owl-carousel vendor-carousel">
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-1.png")}></img>
-                </div>
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-2.png")}></img>
-                </div>
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-3.png")}></img>
-                </div>
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-4.png")}></img>
-                </div>
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-5.png")}></img>
-                </div>
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-6.png")}></img>
-                </div>
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-7.png")}></img>
-                </div>
-                <div class="bg-light p-4">
-                    <img src={require("./img/vendor-8.png")}></img>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-	<div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style={{margintop: 90}}>
-        <div class="row pt-5">
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Get In Touch</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-phone-alt text-white mr-3"></i>+012 345 67890</p>
-                <p><i class="fa fa-envelope text-white mr-3"></i>info@example.com</p>
-                <h6 class="text-uppercase text-white py-2">Follow Us</h6>
-                <div class="d-flex justify-content-start">
-                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-lg btn-dark btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Usefull Links</h4>
-                <div class="d-flex flex-column justify-content-start">
-                    <a class="text-body mb-2" href="#">Private Policy</a>
-                    <a class="text-body mb-2" href="#">Term & Conditions</a>
-                    <a class="text-body mb-2" href="#">New Member Registration</a>
-                    <a class="text-body mb-2" href="#">Affiliate Programme</a>
-                    <a class="text-body mb-2" href="#">Return & Refund</a>
-                    <a class="text-body" href="#">Help & FQAs</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Car Gallery</h4>
-                <div class="row mx-n1">
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src={require("./img/gallery-1.jpg")}></img></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src={require("./img/gallery-2.jpg")}></img></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src={require("./img/gallery-3.jpg")}></img></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src={require("./img/gallery-4.jpg")}></img></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src={require("./img/gallery-5.jpg")}></img></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src={require("./img/gallery-6.jpg")}></img></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Newsletter</h4>
-                <p class="mb-4">Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
-                <div class="w-100 mb-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-dark border-dark" style={{padding: 25}} placeholder="Your Email"></input>
-                        <div class="input-group-append">
-                            <button class="btn btn-primary text-uppercase px-3">Sign Up</button>
-                        </div>
-                    </div>
-                </div>
-                <i>Lorem sit sed elitr sed kasd et</i>
-            </div>
-        </div>
-    </div>
-	
-    <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
-        <p class="mb-2 text-center text-body">&copy; <a href="#">Your Site Name</a>. All Rights Reserved.</p>
-        <p class="m-0 text-center text-body">Designed by <a href=""></a></p>
-    </div>
-	
+</div>
 </body>
     );
   }
 
 }
 
-export default Landing;
+Landing.propTypes = {
+    getUser: PropTypes.func.isRequired,
+	logout: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired,
+    security: PropTypes.object.isRequired
+  };
+  
+  const mapStateToProps = state => ({
+    security: state.security,
+    errors: state.errors
+  });
+  
+  export default withRouter(connect(
+    mapStateToProps,
+    {logout,getUser }
+  )(Landing));

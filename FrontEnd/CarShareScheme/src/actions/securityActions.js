@@ -26,7 +26,8 @@ export const createNewUser = (newUser, history) => async dispatch => {
           });
         }
         history.push("/")
-        history.push("/signup")
+        history.push("/register")
+        alert("Account exist")
     }
 }
 
@@ -53,7 +54,9 @@ export const login = (LoginRequest, history) => async dispatch => {
           type: SET_CURRENT_USER,
           payload: decoded
         });
-        history.push("/")
+        let url = "/";
+        window.open(url)
+        alert("Login successful")
     }
     catch (err)
     {
@@ -63,6 +66,7 @@ export const login = (LoginRequest, history) => async dispatch => {
       });
       history.push("/")
       history.push("/login")
+      alert("Username or password error")
     }
 
 }
