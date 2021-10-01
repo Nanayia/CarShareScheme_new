@@ -29,13 +29,13 @@ public class CarService {
 
     public List<Car> queryCar(String query) {
         Map<Long, Car> map = new HashMap<>();
-        for (Car car : carRepository.getCarsByName(query)) {
+        for (Car car : carRepository.getCarsBycarName(query)) {
             map.put(car.getId(), car);
         }
-        for (Car car : carRepository.getCarsByModel(query)) {
+        for (Car car : carRepository.getCarsBycarModel(query)) {
             map.put(car.getId(), car);
         }
-        for (Car car : carRepository.getCarsByColor(query)) {
+        for (Car car : carRepository.getCarsBycarColor(query)) {
             map.put(car.getId(), car);
         }
         List<Car> list = new ArrayList<>(map.values());

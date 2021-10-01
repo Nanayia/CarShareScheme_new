@@ -82,12 +82,6 @@ public class UserService {
             }
             user.setEmail(email);
         }
-        if (phone != null && phone.length() > 0 && !Objects.equals(user.getPhone(), phone)) {
-            user.setPhone(phone);
-        }
-        if (abn != null && abn.length() > 0 && !Objects.equals(user.getAbn(), abn)) {
-            user.setAbn(abn);
-        }
     }
 
 

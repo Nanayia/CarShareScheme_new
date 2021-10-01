@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CarRepository extends JpaRepository<Car, Long> {
 
     Car getById(Long id);
-    List<Car> getCarsByName(String query);
-    List<Car> getCarsByModel(String query);
-    List<Car> getCarsByColor(String query);
+    List<Car> getCarsBycarName(String query);
+    List<Car> getCarsBycarModel(String query);
+    List<Car> getCarsBycarColor(String query);
 }

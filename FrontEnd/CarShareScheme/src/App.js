@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -10,6 +9,7 @@ import Landing from "./components/Layout/Landing";
 import ContactUs from "./components/Layout/ContactUS";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import SingleCar from "./components/CarManagement/SingleCar";
 
 import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
@@ -40,12 +40,12 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Header />
             {
               //Public Routes
             }
            
             <Route exact path="/" component={Landing} />
+            <Route exact path="/car" component={SingleCar} />
             <Route exact path="/ContactUs" component={ContactUs} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />

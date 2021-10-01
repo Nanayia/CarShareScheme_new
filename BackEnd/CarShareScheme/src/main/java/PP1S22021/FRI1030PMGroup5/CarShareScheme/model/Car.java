@@ -7,16 +7,15 @@ import lombok.*;
 import javax.persistence.*;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
-@Entity(name = "BookingTable")
+@Entity(name = "CarTable")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data //Builds all getters and setters
 @Builder
 public class Car {
-
     @Id
-    @SequenceGenerator(name = "book_sequence", sequenceName = "book_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_sequence")
+    @SequenceGenerator(name = "car_sequence", sequenceName = "car_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "car_sequence")
     @Column(name = "id", updatable = false)
     private Long id;
 

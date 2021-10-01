@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
 @Builder
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,12 +43,6 @@ public class User implements UserDetails {
     @NotBlank(message = "Password field is required")
     @Column(name = "password", nullable = false, columnDefinition = "TEXT")
     private String password;
-
-    @Column(name = "phone", columnDefinition = "TEXT")
-    private String phone;
-
-    @Column(name = "abn", columnDefinition = "TEXT")
-    private String abn;
 
     @Column(name = "account_type",  columnDefinition = "TEXT")
     private String accountType;

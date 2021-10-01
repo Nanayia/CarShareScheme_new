@@ -88,7 +88,7 @@ onSubmit(e){
 
 render() {
   return (
-    <body class="body">
+    <body class="body1">
       <div class="container">
         <div class="d-flex justify-content-center h-100">
             <div class="card">

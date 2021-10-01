@@ -16,12 +16,16 @@ public class BookingConfig {
         return args -> {
             Booking booking1 = Booking.builder()
                     .userID("1")
+                    .username("AA")
+                    .carName("d12")
                     .carType("adwdw")
+                    .carColor("red")
                     .pickUp("12s12")
                     .dropOff("d12d1")
                     .pickupDate(date)
                     .dropoffDate(date)
                     .build();
+            repository.save(booking1);
         };
     }
 }

@@ -1,37 +1,33 @@
 import React, { Component } from 'react'
-import { getUser } from "../../actions/userActions";
-import store from "../../store"
+import { getCar } from "../../actions/carActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router';
-import { logout } from '../../actions/securityActions';
 import { Link } from 'react-router-dom';
+import Header from "./Header";
+import axios from "axios";
+
+
+
 
 class Landing extends Component {
 
     constructor(props) {
         super(props)
-        this.onChange = this.onChange.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-
-	onSubmit(e){
-        e.preventDefault();
-		this.props.logout();
-	}
-
-
-    onChange(e){
-        this.setState({[e.target.name]: e.target.value});
-    }
-
-    componentDidMount () {
-        console.log(store.getState())
-        if (store.getState().security.validToken) {
-            this.props.getUser(store.getState().security.user.id, this.props.history)
+        this.onSubmitCar = this.onSubmitCar.bind(this)
+        this.state = {
+            cars : []
         }
-        this.forceUpdate()
+    }
 
+    onSubmitCar(e,id) {
+        e.preventDefault();
+        this.props.getCar(id, this.props.history)
+      }
+    componentDidMount () {
+        axios.get("http://localhost:8080/api/cars").then((response) => {
+        this.setState({ cars: response.data })
+        });
         const link1 = document.createElement("link")
         link1.rel="stylesheet"
         link1.href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
@@ -62,204 +58,23 @@ class Landing extends Component {
         link4.href="./CssFiles/mainPage.css" 
         document.body.appendChild(link4)
 
+        const link5 = document.createElement("link")
+        link5.rel="stylesheet"
+        link5.href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        document.body.appendChild(link5)
       }
+      componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+          return;
+        };
+      }
+
   render() {
     return (
         <body>
+        <Header />
     <div class="super_container">
-        <header class="header">
-            <div class="top_bar">
-                <div class="container">       
-                    <div class="row">
-                        <div class="col d-flex flex-row">
-                            <div class="top_bar_contact_item">
-                                <div class="top_bar_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918577/phone.png" alt=""></img></div>+92 0000 132 000
-                            </div>
-                            <div class="top_bar_contact_item">
-                                <div class="top_bar_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918597/mail.png" alt=""></img></div><a href="mailto:fastsales@gmail.com">contact@gmail.com</a>
-                            </div>
-                            <div class="top_bar_content ml-auto">
-                                <div class="top_bar_menu">
-                                    <ul class="standard_dropdown top_bar_dropdown">
-                                        <li> <a href="#">English<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li><a href="#">Italian</a></li>
-                                                <li><a href="#">Spanish</a></li>
-                                                <li><a href="#">Japanese</a></li>
-                                            </ul>
-                                        </li>
-                                        <li> <a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li><a href="#">EUR Euro</a></li>
-                                                <li><a href="#">GBP British Pound</a></li>
-                                                <li><a href="#">JPY Japanese Yen</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                {
-                store.getState().security.validToken ? 
-                <div class="top_bar_user">
-                                    <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></img></div>
-                                    <div><a href="/register">{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}</a></div>
-                                    <div><a href="/Login" onClick={e=>this.onSubmit(e)}>Log out</a></div>
-                                </div>
-                                :
-                                <div class="top_bar_user">
-                                    <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></img></div>
-                                    <div><a href="/register">Register</a></div>
-                                    <div><a href="/Login">Sign in</a></div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="header_main">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-2 col-sm-3 col-3 order-1">
-                            <div class="logo_container">
-                                <div class="logo"><a href="/">CarShare</a></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right"></div>
-                        <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
-                            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-                                <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                                    <div class="wishlist_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918681/heart.png" alt=""></img></div>
-                                    <div class="wishlist_content">
-                                        <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                                        <div class="wishlist_count">10</div>
-                                    </div>
-                                </div>
-                                <div class="cart">
-                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
-                                        <div class="cart_icon"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" alt=""></img>
-                                            <div class="cart_count"><span>3</span></div>
-                                        </div>
-                                        <div class="cart_content">
-                                            <div class="cart_text"><a href="#">Cart</a></div>
-                                            <div class="cart_price">$18500</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <nav class="main_nav">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="main_nav_content d-flex flex-row">
-                                <div class="main_nav_menu">
-                                    <ul class="standard_dropdown main_nav_dropdown">
-                                        <li><a href="/" class=" nav-link active">Home<i class="fas fa-chevron-down"></i></a></li>
-                                        <li class="hassubs"> <a href="#">Car Brands<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li> <a href="#" id="mercedes">Mercedes<i class="fas fa-chevron-down"></i></a>
-                                                </li>
-                                                <li><a href="#" id="toyota">Toyota<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#" id="civic">Civic<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#" id="honda">Honda<i class="fas fa-chevron-down"></i></a></li>
-                                            </ul>
-                                        </li>
-                                          
-                                        <li><a href="/blog">Blog<i class="fas fa-chevron-down"></i></a></li>
-                                        <li><a href="/ContactUs">Contact<i class="fas fa-chevron-down"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="menu_trigger_container ml-auto">
-                                    <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
-                                        <div class="menu_burger">
-                                            <div class="menu_trigger_text">menu</div>
-                                            <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div class="page_menu">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="page_menu_content">
-                                <div class="page_menu_search">
-                                </div>
-                                <ul class="page_menu_nav">
-                                    <li class="page_menu_item has-children"> <a href="#">Language<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Currency<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item"> <a href="#">Home<i class="fa fa-angle-down"></i></a> </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
-                                            <li class="page_menu_item has-children"> <a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
-                                                <ul class="page_menu_selection">
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
-                                    <li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
-                                </ul>
-                                <div class="menu_contact">
-                                    <div class="menu_contact_item">
-                                        <div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></img></div>+38 068 005 3570
-                                    </div>
-                                    <div class="menu_contact_item">
-                                        <div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></img></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    
         <div style={{height:700}}> 
         <div class="container">
             <div class="row">
@@ -275,13 +90,16 @@ class Landing extends Component {
                         <div class="item carousel-item active">
                             <div class="row cars-list">
                                 <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
+                                {
+                                            this.state.cars.map(
+                                            car =>
+                                    <div class="thumb-wrapper">   
                                         <div class="img-box">
                                             <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
                                         </div>
                                         <div class="thumb-content">
-                                            <h4>Toyota</h4>
-                                            <p class="item-price"><span>$369</span></p>
+                                            <h4>{car.carName}</h4>
+                                            <p class="item-price"><span>${car.carPrice}</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
@@ -291,9 +109,10 @@ class Landing extends Component {
                                                     <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                                                 </ul>
                                             </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary btn-view">View</a>
+                                            <Link key={car.id} to="/car" class="btn btn-primary btn-view" onClick={e=>this.onSubmitCar(e,car.id)}>View</Link>
                                         </div>						
                                     </div>
+                                    )}
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="thumb-wrapper">
@@ -556,8 +375,7 @@ class Landing extends Component {
 }
 
 Landing.propTypes = {
-    getUser: PropTypes.func.isRequired,
-	logout: PropTypes.func.isRequired,
+    getCar: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
   };
@@ -569,5 +387,5 @@ Landing.propTypes = {
   
   export default withRouter(connect(
     mapStateToProps,
-    {logout,getUser }
+    {getCar}
   )(Landing));

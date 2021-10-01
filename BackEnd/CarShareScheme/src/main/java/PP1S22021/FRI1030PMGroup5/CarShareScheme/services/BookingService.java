@@ -5,6 +5,7 @@ import PP1S22021.FRI1030PMGroup5.CarShareScheme.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +35,8 @@ public class BookingService {
 
     public List<Booking> getBookingByUsername(String id) {
         Map<Long, Booking> map = new HashMap<>();
-        for (Booking order : bookingRepository.getBookingByUserId(id)) {
-            map.put(order.getId(), order);
+        for (Booking booking : bookingRepository.getBookingByuserID(id)) {
+            map.put(booking.getId(), booking);
         }
 
         List<Booking> list = new ArrayList<>(map.values());
@@ -43,5 +44,12 @@ public class BookingService {
         return list;
 
 
+    }
+
+    @Transactional
+    public void BookingCancelled(Long id) {
+        Booking booking = bookingRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("User with Id " + id + " does not exist"));
+        //Booking.setStatus("CANCELLED");
     }
 }

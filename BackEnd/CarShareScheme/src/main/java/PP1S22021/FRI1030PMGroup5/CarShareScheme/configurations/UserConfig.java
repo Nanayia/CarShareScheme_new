@@ -20,7 +20,6 @@ public class UserConfig {
                     .lastName("aagg")
                     .email("abcsss@hotmail.com")
                     .password("123456")
-                    .phone("1234567890")
                     .accountType("Admin")
                     .build();
             User user2 = User.builder()
@@ -29,8 +28,6 @@ public class UserConfig {
                     .lastName("Jaegar")
                     .email("frankjaegar@gmail.com")
                     .password("SECUREPASSWORD")
-                    .phone("0000555999")
-                    .abn("An ABN")
                     .accountType("Regular")
                     .build();
             User user3 = User.builder()
@@ -39,7 +36,6 @@ public class UserConfig {
                     .lastName("Frusciante")
                     .email("jf@gmail.com")
                     .password("SECUREPASSWORD")
-                    .phone("0000555999")
                     .accountType("Publisher")
                     .build();
             User user4 = User.builder()
@@ -48,8 +44,6 @@ public class UserConfig {
                     .lastName("Luigi")
                     .email("itsame@gmail.com")
                     .password("SECUREPASSWORD")
-                    .phone("5463456634")
-                    .abn("An ABN")
                     .accountType("Regular")
                     .build();
 

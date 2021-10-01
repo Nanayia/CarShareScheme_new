@@ -57,6 +57,7 @@ export const login = (LoginRequest, history) => async dispatch => {
         let url = "/";
         window.open(url)
         alert("Login successful")
+        window.close()
     }
     catch (err)
     {

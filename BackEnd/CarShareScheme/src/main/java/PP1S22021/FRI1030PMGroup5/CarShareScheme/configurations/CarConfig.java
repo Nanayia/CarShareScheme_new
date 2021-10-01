@@ -18,6 +18,7 @@ public class CarConfig {
                     .carColor("asdas")
                     .carPrice("320")
                     .build();
+            repository.save(car1);
         };
     }
 }
