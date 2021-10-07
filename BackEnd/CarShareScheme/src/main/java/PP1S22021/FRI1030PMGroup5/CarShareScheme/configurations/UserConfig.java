@@ -36,7 +36,7 @@ public class UserConfig {
                     .lastName("Frusciante")
                     .email("jf@gmail.com")
                     .password("SECUREPASSWORD")
-                    .accountType("Publisher")
+                    .accountType("Regular")
                     .build();
             User user4 = User.builder()
                     .username("LetsAGo")
