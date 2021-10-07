@@ -42,7 +42,7 @@ public class UserConfig {
                     .username("LetsAGo")
                     .firstName("Mario")
                     .lastName("Luigizzee")
-                    .email("itsam1e@gmail.com")
+                    .email("itsam12e@gmail.com")
                     .password("SECUREPASSWORD")
                     .accountType("Regular")
                     .build();
