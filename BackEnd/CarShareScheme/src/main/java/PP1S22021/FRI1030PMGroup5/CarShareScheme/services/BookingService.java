@@ -33,9 +33,9 @@ public class BookingService {
         bookingRepository.save(booking);
     }
 
-    public List<Booking> getBookingByUsername(String id) {
+    public List<Booking> getBookingByUsername(String username) {
         Map<Long, Booking> map = new HashMap<>();
-        for (Booking booking : bookingRepository.getBookingByuserID(id)) {
+        for (Booking booking : bookingRepository.getBookingByUsername(username)) {
             map.put(booking.getId(), booking);
         }
 
@@ -47,9 +47,16 @@ public class BookingService {
     }
 
     @Transactional
-    public void BookingCancelled(Long id) {
+    public void bookingCancelled(Long id) {
         Booking booking = bookingRepository.findById(id).orElseThrow(() ->
                 new IllegalStateException("User with Id " + id + " does not exist"));
-        //Booking.setStatus("CANCELLED");
+        booking.setStatus("CANCELLED");
+    }
+
+    @Transactional
+    public void bookingReturn(Long id) {
+        Booking booking = bookingRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("User with Id " + id + " does not exist"));
+        booking.setStatus("Returned");
     }
 }

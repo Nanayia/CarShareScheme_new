@@ -1,5 +1,7 @@
 import axios from "axios";
 import { GET_USERS, GET_USER } from "./types";
+import setJWTToken from "../securityUtils/setJWTToken";
+
 
 
 export const getUsers = () => async dispatch => {
@@ -18,6 +20,8 @@ export const getUser = (id, history) => async dispatch => {
       payload: res.data
     });
   } catch (error) {
+    localStorage.removeItem("jwtToken");
+    setJWTToken(false);
     alert("FAILED GET USER")
     history.push("/");
   }

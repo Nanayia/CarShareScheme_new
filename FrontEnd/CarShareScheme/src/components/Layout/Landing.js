@@ -89,13 +89,13 @@ class Landing extends Component {
                     <div class="carousel-inner">
                         <div class="item carousel-item active">
                             <div class="row cars-list">
-                                <div class="col-sm-3">
                                 {
                                             this.state.cars.map(
                                             car =>
+                                    <div class="col-sm-3">
                                     <div class="thumb-wrapper">   
                                         <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                            <img src={car.image} class="img-responsive img-fluid" alt=""></img>
                                         </div>
                                         <div class="thumb-content">
                                             <h4>{car.carName}</h4>
@@ -112,83 +112,24 @@ class Landing extends Component {
                                             <Link key={car.id} to="/car" class="btn btn-primary btn-view" onClick={e=>this.onSubmitCar(e,car.id)}>View</Link>
                                         </div>						
                                     </div>
+                                    </div>
                                     )}
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Honda civic</h4>
-                                            <p class="item-price"> <span>$230</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="#" class="btn btn-primary">View</a>
-                                        </div>						
-                                    </div>
-                                </div>		
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Mercedes</h4>
-                                            <p class="item-price"><span>$649</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
-                                        </div>						
-                                    </div>
-                                </div>								
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Lenex</h4>
-                                            <p class="item-price"><span>$250.00</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
-                                        </div>						
-                                    </div>
-                                </div>
                             </div>
                         </div>
+
                         <div class="item carousel-item">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
+                            <div class="row cars-list">
+                                {
+                                            this.state.cars.map(
+                                            car =>
+                                    <div class="col-sm-3">
+                                    <div class="thumb-wrapper">   
                                         <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                            <img src={car.image} class="img-responsive img-fluid" alt=""></img>
                                         </div>
                                         <div class="thumb-content">
-                                            <h4>Toyota Camrey</h4>
-                                            <p class="item-price"><span>$269.00</span></p>
+                                            <h4>{car.carName}</h4>
+                                            <p class="item-price"><span>${car.carPrice}</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
@@ -198,85 +139,27 @@ class Landing extends Component {
                                                     <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                                                 </ul>
                                             </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                            <Link key={car.id} to="/car" class="btn btn-primary btn-view" onClick={e=>this.onSubmitCar(e,car.id)}>View</Link>
                                         </div>						
                                     </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Lenex</h4>
-                                            <p class="item-price"><span>$869.00</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
-                                        </div>						
                                     </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Mercedes</h4>
-                                            <p class="item-price"><span>$499.00</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
-                                        </div>						
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Honda Civic</h4>
-                                            <p class="item-price"><span>$569.00</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="#" class="btn btn-primary">View</a>
-                                        </div>						
-                                    </div>
-                                </div>						
+                                    )}
                             </div>
                         </div>
+
                         <div class="item carousel-item">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
+                            <div class="row cars-list">
+                                {
+                                            this.state.cars.map(
+                                            car =>
+                                    <div class="col-sm-3">
+                                    <div class="thumb-wrapper">   
                                         <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
+                                            <img src={car.image} class="img-responsive img-fluid" alt=""></img>
                                         </div>
                                         <div class="thumb-content">
-                                            <h4>Honda Civic</h4>
-                                            <p class="item-price"><span>$349.00</span></p>
+                                            <h4>{car.carName}</h4>
+                                            <p class="item-price"><span>${car.carPrice}</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
@@ -286,73 +169,11 @@ class Landing extends Component {
                                                     <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                                                 </ul>
                                             </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
+                                            <Link key={car.id} to="/car" class="btn btn-primary btn-view" onClick={e=>this.onSubmitCar(e,car.id)}>View</Link>
                                         </div>						
                                     </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Honda Civic</h4>
-                                            <p class="item-price"><span>$250.00</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
-                                        </div>						
                                     </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Lenex</h4>
-                                            <p class="item-price"> <span>$418.00</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
-                                        </div>						
-                                    </div>
-                                </div>	
-                                <div class="col-sm-3">
-                                    <div class="thumb-wrapper">
-                                        <div class="img-box">
-                                            <img src="https://images.unsplash.com/photo-1589148938909-4d241c91ee52?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FyJTIwaW1hZ2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-responsive img-fluid" alt=""></img>
-                                        </div>
-                                        <div class="thumb-content">
-                                            <h4>Mercedes</h4>
-                                            <p class="item-price"><span>$330.00</span></p>
-                                            <div class="star-rating">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                            <a href="./placeOrder.html" class="btn btn-primary">View</a>
-                                        </div>						
-                                    </div>
-                                </div>
+                                    )}
                             </div>
                         </div>
                     </div>

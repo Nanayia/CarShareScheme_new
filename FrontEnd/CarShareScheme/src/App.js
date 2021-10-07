@@ -9,6 +9,9 @@ import Landing from "./components/Layout/Landing";
 import ContactUs from "./components/Layout/ContactUS";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import UserDashboard from "./components/UserManagement/UserDashboard";
+import Edit from "./components/UserManagement/Edit";
+import Bookings from "./components/UserManagement/Bookings";
 import SingleCar from "./components/CarManagement/SingleCar";
 
 import jwt_decode from "jwt-decode";
@@ -53,6 +56,9 @@ class App extends Component {
             {
               //Private Routes
             }
+            <Route exact path="/UserDashboard" component={UserDashboard} />
+            <Route exact path="/bookings" component={Bookings} />
+            <Route exact path="/edit" component={Edit} />
           
           </div>
         </Router>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {LOGIN_ERROR, USER_EXISTS_ERROR, EMAIL_EXISTS_ERROR, SET_CURRENT_USER} from "./types";
+import {LOGIN_ERROR, USER_EXISTS_ERROR, EMAIL_EXISTS_ERROR, SET_CURRENT_USER, UPDATE_CURRENT_USER} from "./types";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
 
@@ -54,10 +54,9 @@ export const login = (LoginRequest, history) => async dispatch => {
           type: SET_CURRENT_USER,
           payload: decoded
         });
-        let url = "/";
-        window.open(url)
+        history.push("/")
         alert("Login successful")
-        window.close()
+        window.location.reload()
     }
     catch (err)
     {
@@ -79,4 +78,32 @@ export const logout = () => dispatch => {
     type: SET_CURRENT_USER,
     payload: null
   });
+}
+
+
+export const editUser = (id,user,history) => async dispatch => {
+  try {
+    const res = await axios.put(`http://localhost:8080/api/users/${id}`, null, { params: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+    }})
+    dispatch({
+      type: UPDATE_CURRENT_USER,
+      payload: res.data
+    });
+    alert("Saved profile, after next log in, you can see the changes")
+    history.push("/edit")
+  } catch (error) {
+    if (error.response.status === 400) {
+      dispatch({
+          type: EMAIL_EXISTS_ERROR,
+          payload: error.response.data.username
+      });
+    } else {
+      alert("Failed to save profile")
+    }
+    history.push("/")
+  }
 }

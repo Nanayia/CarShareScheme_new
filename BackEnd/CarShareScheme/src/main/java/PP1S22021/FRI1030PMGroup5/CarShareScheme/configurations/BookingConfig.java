@@ -17,13 +17,16 @@ public class BookingConfig {
             Booking booking1 = Booking.builder()
                     .userID("1")
                     .username("AA")
+                    .carId("3")
                     .carName("d12")
                     .carType("adwdw")
                     .carColor("red")
+                    .carPrice("320")
                     .pickUp("12s12")
                     .dropOff("d12d1")
                     .pickupDate(date)
                     .dropoffDate(date)
+                    .status("Return")
                     .build();
             repository.save(booking1);
         };

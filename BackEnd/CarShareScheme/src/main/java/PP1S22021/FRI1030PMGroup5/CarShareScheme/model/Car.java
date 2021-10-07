@@ -30,4 +30,7 @@ public class Car {
 
     @Column(name = "carPrice", columnDefinition = "TEXT")
     private String carPrice;
+
+    @Column(name = "image", columnDefinition = "TEXT")
+    private String image;
 }

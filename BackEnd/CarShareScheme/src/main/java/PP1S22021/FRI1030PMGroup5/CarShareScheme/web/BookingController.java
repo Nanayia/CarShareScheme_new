@@ -39,5 +39,19 @@ public class BookingController {
         return bookingService.getBookingByUsername((String)query.get("username"));
     }
 
+    @PutMapping(path = "/cancelled/{bookingId}")
+    public List<Booking> bookingCancelled(@PathVariable("bookingId") Long bookingId) {
+        bookingService.bookingCancelled(bookingId);
+        Booking booking = bookingService.getBookingById(bookingId);
+        return bookingService.getBookingByUsername(booking.getUsername());
+    }
+
+    @PutMapping(path = "/return/{bookingId}")
+    public List<Booking> bookingReturn(@PathVariable("bookingId") Long bookingId) {
+        bookingService.bookingReturn(bookingId);
+        Booking booking = bookingService.getBookingById(bookingId);
+        return bookingService.getBookingByUsername(booking.getUsername());
+    }
+
 
 }

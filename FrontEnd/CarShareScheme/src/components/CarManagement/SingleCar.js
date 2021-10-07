@@ -6,24 +6,22 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux"
 import { createNewBooking } from "../../actions/bookingActions";
 
-
-const initialState = {
-    pickUp: "",
-    dropOff: "",
-    pickupDate: "",
-    dropoffDate: "",
-}
-
-
 class SingleCar extends Component{
 
     constructor(props) {
         super(props)
         this.state = {
             car : JSON.parse(localStorage.car),
+            carId: "",
+            pickUp: "",
+            dropOff: "",
+            pickupDate: "",
+            dropoffDate: "",
+            carPrice:"",
+            status:"Rrturn",
         }
-        this.input = initialState
         this.onSubmit = this.onSubmit.bind(this)
+        this.onChange = this.onChange.bind(this)
     }
 
     createBooking(data, actions) {
@@ -43,32 +41,40 @@ class SingleCar extends Component{
             userID: store.getState().security.user.id,
             userName: store.getState().security.user.username,
             carName: this.state.car.carName,
-            carType: this.state.car.carType,
+            carModel: this.state.car.carType,
             carColor: this.state.car.carColor,
             carPrice: this.state.car.carPrice,
             pickUp: "",
             dropOff: "",
             pickupDate: "",
             dropoffDate: "",
+            status:"Rrturn",
         }
         this.props.createNewBooking(newBooking, this.props.history);
 
         return actions.Booking.capture();
     }
 
+    onChange(e){
+      this.setState({[e.target.name]: e.target.value});
+  }
+
     onSubmit(e){
         e.preventDefault();
         const newBooking = {
-            userID: "1",
-            userName: "user1",
+            userID: store.getState().security.user.id,
+            username: store.getState().security.user.username,
+            carId: this.state.car.id,
             carName: this.state.car.carName,
-            carType: this.state.car.carType,
+            carType: this.state.car.carModel,
             carColor: this.state.car.carColor,
             carPrice: this.state.car.carPrice,
-            pickUp: this.input.pickUp,
-            dropOff: this.input.dropOff,
+            pickUp: this.state.pickUp,
+            dropOff: this.state.dropOff,
+            carPrice: this.state.car.carPrice,
             pickupDate: "",
             dropoffDate: "",
+            status:"Return",
         }
         this.props.createNewBooking(newBooking, this.props.history);
 
@@ -108,7 +114,7 @@ class SingleCar extends Component{
        
           <div class="product-description">
             <span>CARS</span>
-            <h1 id="car-name">{this.state.car.carName}</h1>
+            <h1>{this.state.car.carName}</h1>
             <p>A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one-to-eight people, have four wheels and mainly transport people rather than goods. ... Cars have controls for driving, parking, passenger comfort, and a variety of lights.</p>
           </div>
           <form onSubmit={this.onSubmit}>
@@ -128,6 +134,8 @@ class SingleCar extends Component{
                             type='text' 
                             name='pickUp'
                             placeholder='Enter your pickUp'
+                            value={this.state.pickUp}
+                            onChange={this.onChange}
                             /> 
               </div>
               <div class="cable-config">
@@ -136,6 +144,8 @@ class SingleCar extends Component{
                             type='text' 
                             name='dropOff'
                             placeholder='Enter your dropOff'
+                            value={this.state.dropOff}
+                            onChange={this.onChange}
                             /> 
  
             </div>

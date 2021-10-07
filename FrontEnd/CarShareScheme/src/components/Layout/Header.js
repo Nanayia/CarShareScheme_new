@@ -7,7 +7,9 @@ import { withRouter } from 'react-router';
 import { logout } from '../../actions/securityActions';
 import { Link } from 'react-router-dom';
 
+
  class Header extends Component {
+     
 
 	constructor(props) {
         super(props)
@@ -69,7 +71,7 @@ import { Link } from 'react-router-dom';
                 store.getState().security.validToken ? 
                 <div class="top_bar_user">
                                     <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></img></div>
-                                    <div><a href="#">{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}</a></div>
+                                    <div><a href="/UserDashboard">{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}</a></div>
                                     <div><a href="#" onClick={e=>this.onSubmit(e)}>Log out</a></div>
                                 </div>
                                 :

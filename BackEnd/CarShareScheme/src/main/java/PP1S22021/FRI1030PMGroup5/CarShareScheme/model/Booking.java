@@ -27,6 +27,9 @@ public class Booking {
     @Column(name = "username",  columnDefinition = "TEXT")
     private String username;
 
+    @Column(name = "carId", columnDefinition = "TEXT")
+    private String carId;
+
     @Column(name = "carName", columnDefinition = "TEXT")
     private String carName;
 
@@ -50,6 +53,9 @@ public class Booking {
 
     @Column(name = "dropoffDate", columnDefinition = "Date")
     private Date dropoffDate;
+
+    @Column(name = "status", columnDefinition = "TEXT")
+    private String status;
 
 
     public String getByuserID(){return userID.toLowerCase();}
