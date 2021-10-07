@@ -41,7 +41,7 @@ public class UserConfig {
             User user4 = User.builder()
                     .username("LetsAGo")
                     .firstName("Mario")
-                    .lastName("Luigiz")
+                    .lastName("Luigizz")
                     .email("itsame@gmail.com")
                     .password("SECUREPASSWORD")
                     .accountType("Regular")
