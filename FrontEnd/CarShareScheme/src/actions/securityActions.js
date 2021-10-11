@@ -11,6 +11,7 @@ export const createNewUser = (newUser, history) => async dispatch => {
         history.push("/login")
 
           alert("Account created.")
+          window.location.reload()
     } 
     catch (err) {
         if (err.response.status === 400) {
@@ -28,7 +29,36 @@ export const createNewUser = (newUser, history) => async dispatch => {
         history.push("/")
         history.push("/register")
         alert("Account exist")
+        window.location.reload()
     }
+}
+
+export const createNewAdmin = (newUser, history) => async dispatch => {
+  try {
+      await axios.post("http://localhost:8080/api/users/register", newUser)
+
+      history.push("/AdminDashboard")
+
+        alert("Account created.")
+        window.location.reload()
+  } 
+  catch (err) {
+      if (err.response.status === 400) {
+        dispatch({
+            type: EMAIL_EXISTS_ERROR,
+            payload: err.response.data.username
+        });
+      }
+      if (err.response.status === 406) {
+        dispatch({
+            type: USER_EXISTS_ERROR,
+            payload: err.response.data.username
+        });
+      }
+      history.push("/NewAdmin")
+      alert("Account exist")
+      window.location.reload()
+  }
 }
 
 export const login = (LoginRequest, history) => async dispatch => {
@@ -67,6 +97,7 @@ export const login = (LoginRequest, history) => async dispatch => {
       history.push("/")
       history.push("/login")
       alert("Username or password error")
+      window.location.reload()
     }
 
 }

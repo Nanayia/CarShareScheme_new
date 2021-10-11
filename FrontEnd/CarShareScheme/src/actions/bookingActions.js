@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_USER_BOOKINGS } from "./types";
+import { GET_USER_BOOKINGS,GET_BOOKINGS } from "./types";
 
 export const createNewBooking = (newBooking, history) => async dispatch => {
     try {
@@ -29,6 +29,22 @@ export const getBookings = (username, history) => async dispatch => {
       alert("Failed to get Bookings")
       history.push("/UserDashboard")
     }
+}
+
+export const getAllBookings = (history) => async dispatch => {
+  try {
+    const res = await axios.get("http://localhost:8080/api/bookings")
+    localStorage.setItem("allBookings", JSON.stringify(res.data));
+    dispatch({
+      type: GET_BOOKINGS,
+      payload: res.data
+    });
+    history.push("/AllBookings")
+
+  } catch (error) {
+    alert("Failed to get Bookings")
+    history.push("/AdminDashboard")
+  }
 }
 
 export const bookingCancelled = (bookingId, history) => async dispatch => {

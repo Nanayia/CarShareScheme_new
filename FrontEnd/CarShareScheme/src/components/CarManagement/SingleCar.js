@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom"
 import store from "../../store";
+import DatePicker from "react-datepicker";
+
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux"
@@ -72,7 +74,7 @@ class SingleCar extends Component{
             pickUp: this.state.pickUp,
             dropOff: this.state.dropOff,
             carPrice: this.state.car.carPrice,
-            pickupDate: "",
+            pickupDate: this.state.pickupDate,
             dropoffDate: "",
             status:"Return",
         }
@@ -129,21 +131,21 @@ class SingleCar extends Component{
               <span>{this.state.car.carColor}</span>
             </div>
             <div class="cable-config">
-              <span>pickUp</span>
+              <span>Pick up location</span>
               <input 
                             type='text' 
                             name='pickUp'
-                            placeholder='Enter your pickUp'
+                            placeholder='Enter your pick up location'
                             value={this.state.pickUp}
                             onChange={this.onChange}
                             /> 
               </div>
               <div class="cable-config">
-              <span>dropOff</span>
+              <span>Drop off location</span>
               <input 
                             type='text' 
                             name='dropOff'
-                            placeholder='Enter your dropOff'
+                            placeholder='Enter your drop off location'
                             value={this.state.dropOff}
                             onChange={this.onChange}
                             /> 

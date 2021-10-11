@@ -14,6 +14,7 @@ const initialState = {
   emailError: "",
   passwordError: "",
   confirmPasswordError: "",
+  accountType:"",
 }
 
 
@@ -107,6 +108,7 @@ onSubmit(e){
           email: this.state.email,
           password: this.state.password,
           confirmPassword: this.state.confirmPassword,
+          accountType:"Regular",
       }
       this.props.createNewUser(newUser, this.props.history);
   }

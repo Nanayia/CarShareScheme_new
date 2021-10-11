@@ -44,8 +44,6 @@ public class CarController {
 
     @PostMapping("/newCar")
     public ResponseEntity<?> listNewCar(@Valid @RequestBody Car car, BindingResult result){
-        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if(errorMap != null)return errorMap;
 
         carService.addNewCar(car);
 

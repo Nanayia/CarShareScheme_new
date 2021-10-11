@@ -5,6 +5,7 @@ export const GET_CAR = "GET_CAR"
 export const GET_CARS = "GET_CARS"
 
 export const GET_USER_BOOKINGS = "GET_USER_BOOKINGS";
+export const GET_BOOKINGS = "GET_BOOKINGS";
 
 export const LOGIN_ERROR = "LOGIN_ERRORS";
 export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";

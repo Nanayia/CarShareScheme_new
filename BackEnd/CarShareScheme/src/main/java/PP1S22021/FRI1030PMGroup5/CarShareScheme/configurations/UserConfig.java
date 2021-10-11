@@ -15,11 +15,11 @@ public class UserConfig {
     CommandLineRunner commandLineRunner(UserRepository repository) {
         return args -> {
             User user1 = User.builder()
-                    .username("fofmsan")
+                    .username("admin")
                     .firstName("aww")
                     .lastName("aagg")
                     .email("abcsss@hotmail.com")
-                    .password("123456")
+                    .password("$2a$10$a/nbsoLzSYbJC9Sr5Ss5ceaZtoB/DIlRe/FRpOyK3kjANIosqEtzu")
                     .accountType("Admin")
                     .build();
             User user2 = User.builder()

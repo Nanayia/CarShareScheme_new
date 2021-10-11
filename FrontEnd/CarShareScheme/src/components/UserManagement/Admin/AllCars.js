@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router';
-import store from "../../store";
-import { bookingCancelled, bookingReturn } from "../../actions/bookingActions";
-import { getBookings } from "../../actions/bookingActions";
-import Header from "./Header";
-import { getCar } from "../../actions/carActions";
+import store from "../../../store";
+import HeaderAdmin from "./HeaderAdmin";
+import { getCar } from "../../../actions/carActions";
 
-class Bookings extends Component {
+class AllCars extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            bookings : JSON.parse(localStorage.bookings)
+            cars : JSON.parse(localStorage.cars)
         }
     }
 
@@ -41,15 +38,6 @@ class Bookings extends Component {
               document.body.appendChild(script2)
     }
 
-      Cancelled(e,id){
-        e.preventDefault();
-        this.props.bookingCancelled(id,this.props.history)
-      }
-
-      Return(e,id){
-        e.preventDefault();
-        this.props.bookingReturn(id,this.props.history)
-      }
 
       onSubmitCar(e,id) {
         e.preventDefault();
@@ -63,20 +51,20 @@ class Bookings extends Component {
             <div id="throbber" style={{display:"none", minheight:120}}></div>
         <div id="noty-holder"></div>
         <div id="wrapper">
-            <Header/>
+            <HeaderAdmin/>
             
             <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row" id="main" >
                 <div class="col-sm-12 col-md-12 well" id="content">
             <div class="wrapper rounded">
-            <nav class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start"> <h1>Your Purchases </h1> 
+            <nav class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start"> <h1>All Cars</h1> 
                
             </nav>
             
             <div class="d-flex justify-content-between align-items-center mt-3">
             <ul class="nav nav-tabs w-75">
-                    <li class="nav-item"> <h4>Rented Cars</h4> </li>
+                    <li class="nav-item"> <h4>Cars</h4> </li>
                     </ul>
                    
                 
@@ -85,38 +73,24 @@ class Bookings extends Component {
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <th scope="col">Car</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Model</th>
-                            <th scope="col">Color</th>
-                            <th scope="col" >Pick up</th>
-                            <th scope="col" >Drop off</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Cancellation</th>
+                            <th scope="col" >Color</th>
+                            <th scope="col" >Price</th>
                             <th scope="col">Review</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.bookings.map(
-                            booking =>
-                        <tr key={booking.id}>
-                            <td scope="row">{booking.carName}</td>
-                            <td scope="row">{booking.carType}</td>
-                            <td scope="row">{booking.carColor}</td>
-                            <td scope="row">{booking.pickUp}</td>
-                            <td scope="row">{booking.dropOff}</td>
-                            <td scope="row">${booking.carPrice}</td>
-                            { booking.status == "Return" ?
-                            <td><a class="btn btn-info" onClick={e=>this.Return(e,booking.id)}>Return</a></td>
-                            :
-                            <td><a class="btn btn-success" disabled>{booking.status}</a></td>
-                            }
-                            { booking.status == "Return" ?
-                            <td><a class="btn btn-danger" onClick={e=>this.Cancelled(e,booking.id)}>Cancel</a></td>
-                            :
-                            <td><a class="btn btn-danger" disabled>Cancel</a></td>
-                            }
-                            <td><a class="btn btn-primary" onClick={e=>this.onSubmitCar(e,booking.carId)}>View</a></td>
+                        {this.state.cars.map(
+                            car =>
+                        <tr key={car.id}>
+                            <td scope="row">{car.id}</td>
+                            <td scope="row">{car.carName}</td>
+                            <td scope="row">{car.carModel}</td>
+                            <td scope="row">{car.carColor}</td>
+                            <td scope="row">${car.carPrice}</td>
+                            <td><a class="btn btn-primary" onClick={e=>this.onSubmitCar(e,car.id)}>View</a></td>
                         </tr>
                         )}
                     </tbody>
@@ -141,10 +115,7 @@ class Bookings extends Component {
 
 
     }
-    Bookings.propTypes = {
-        bookingCancelled: PropTypes.func.isRequired,
-        bookingReturn: PropTypes.func.isRequired,
-        getBookings: PropTypes.func.isRequired,
+    AllCars.propTypes = {
         getCar: PropTypes.func.isRequired,
         errors: PropTypes.object.isRequired,
         security: PropTypes.object.isRequired
@@ -157,5 +128,5 @@ class Bookings extends Component {
       
     export default withRouter(connect(
         mapStateToProps,
-        { getBookings,bookingCancelled, bookingReturn,getCar}
-    )(Bookings));
+        { getCar}
+    )(AllCars));

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router';
-import store from "../../store";
-import { getUser } from "../../actions/userActions";
-import { getBookings } from "../../actions/bookingActions";
+import store from "../../../store";
+import { getUser } from "../../../actions/userActions";
+import { getBookings } from "../../../actions/bookingActions";
 
 class Header extends Component {
 

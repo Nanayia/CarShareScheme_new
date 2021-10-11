@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import { logout } from '../../actions/securityActions';
-import { Link } from 'react-router-dom';
+import { getUsers } from "../../actions/userActions";
 
 
  class Header extends Component {
@@ -20,6 +20,15 @@ import { Link } from 'react-router-dom';
 	onSubmit(e){
         e.preventDefault();
 		this.props.logout();
+	}
+
+    onSubmitDashboard(e){
+        e.preventDefault();
+		if (store.getState().security.user.accountType === "Admin") {
+            this.props.getUsers(this.props.history) 
+        }else{
+            this.props.history.push("/UserDashboard")
+        }
 	}
 
 
@@ -71,7 +80,7 @@ import { Link } from 'react-router-dom';
                 store.getState().security.validToken ? 
                 <div class="top_bar_user">
                                     <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></img></div>
-                                    <div><a href="/UserDashboard">{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}</a></div>
+                                    <div><a href="#" onClick={e=>this.onSubmitDashboard(e)}>{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}</a></div>
                                     <div><a href="#" onClick={e=>this.onSubmit(e)}>Log out</a></div>
                                 </div>
                                 :
@@ -137,8 +146,6 @@ import { Link } from 'react-router-dom';
                                                 <li><a href="#" id="honda">Honda<i class="fas fa-chevron-down"></i></a></li>
                                             </ul>
                                         </li>
-                                          
-                                        <li><a href="/blog">Blog<i class="fas fa-chevron-down"></i></a></li>
                                         <li><a href="/ContactUs">Contact<i class="fas fa-chevron-down"></i></a></li>
                                     </ul>
                                 </div>
@@ -155,79 +162,6 @@ import { Link } from 'react-router-dom';
                     </div>
                 </div>
             </nav>
-            <div class="page_menu">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="page_menu_content">
-                                <div class="page_menu_search">
-                                </div>
-                                <ul class="page_menu_nav">
-                                    <li class="page_menu_item has-children"> <a href="#">Language<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Currency<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item"> <a href="#">Home<i class="fa fa-angle-down"></i></a> </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
-                                            <li class="page_menu_item has-children"> <a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
-                                                <ul class="page_menu_selection">
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                    <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item has-children"> <a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
-                                    <li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
-                                </ul>
-                                <div class="menu_contact">
-                                    <div class="menu_contact_item">
-                                        <div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></img></div>+38 068 005 3570
-                                    </div>
-                                    <div class="menu_contact_item">
-                                        <div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></img></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </header>
 		)
     }
@@ -235,6 +169,7 @@ import { Link } from 'react-router-dom';
 Header.propTypes = {
     getUser: PropTypes.func.isRequired,
 	logout: PropTypes.func.isRequired,
+    getUsers: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
   };
@@ -246,5 +181,5 @@ Header.propTypes = {
   
   export default withRouter(connect(
     mapStateToProps,
-    {logout,getUser }
+    {logout,getUser,getUsers }
   )(Header));

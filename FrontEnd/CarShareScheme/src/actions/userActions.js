@@ -4,13 +4,15 @@ import setJWTToken from "../securityUtils/setJWTToken";
 
 
 
-export const getUsers = () => async dispatch => {
+export const getUsers = (history) => async dispatch => {
   const res = await axios.get("http://localhost:8080/api/users");
+  localStorage.setItem("users", JSON.stringify(res.data));
   dispatch({
     type: GET_USERS,
     payload: res.data
-  });
-};
+  })
+    history.push("/AdminDashboard")
+}
 
 export const getUser = (id, history) => async dispatch => {
   try {

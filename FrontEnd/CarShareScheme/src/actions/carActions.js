@@ -15,7 +15,7 @@ export const getCar = (id, history) => async dispatch => {
 };
 
 
-export const getCars = () => async dispatch => {
+export const getCars = (history) => async dispatch => {
     try {
         const res = await axios.get(`http://localhost:8080/api/cars`)
         localStorage.setItem("cars", JSON.stringify(res.data));
@@ -23,11 +23,25 @@ export const getCars = () => async dispatch => {
             type: GET_CARS,
             payload: res.data
           })
+        history.push("/AllCars")
+
     } 
     catch (err) {
-        alert(err)
         alert("Failed to get the cars")
-        let url = "/";
-        window.open(url)
+        history.push("/AdminDashboard")
     }
 };
+
+export const createNewCar = (newCar, history) => async dispatch => {
+    try {
+        await axios.post("http://localhost:8080/api/cars/newCar", newCar)
+        alert("Created the Car!")
+        history.push("/NewCar")
+        window.location.reload()
+    }
+    catch (err) {
+        alert("Create the car failed!")
+        history.push("/NewCar")
+        window.location.reload()
+    }
+}
