@@ -5,17 +5,23 @@ import { withRouter } from 'react-router';
 import store from "../../../store";
 import HeaderAdmin from "./HeaderAdmin";
 import { getCar } from "../../../actions/carActions";
+import { deleteCar } from "../../../actions/carActions";
+import axios from "axios";
 
 class AllCars extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            cars : JSON.parse(localStorage.cars)
+            cars : []
         }
     }
 
     componentDidMount() {
+
+        axios.get("http://localhost:8080/api/cars").then((response) => {
+        this.setState({ cars: response.data })
+        });
 
         const link1 = document.createElement("link")
               link1.rel="stylesheet"
@@ -43,6 +49,12 @@ class AllCars extends Component {
         e.preventDefault();
         this.props.getCar(id, this.props.history)
       }
+
+      onSubmit(e,id){
+        this.props.deleteCar(id,this.props.history)
+    }
+
+
 
 
       render(){
@@ -79,6 +91,7 @@ class AllCars extends Component {
                             <th scope="col" >Color</th>
                             <th scope="col" >Price</th>
                             <th scope="col">Review</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,6 +104,7 @@ class AllCars extends Component {
                             <td scope="row">{car.carColor}</td>
                             <td scope="row">${car.carPrice}</td>
                             <td><a class="btn btn-primary" onClick={e=>this.onSubmitCar(e,car.id)}>View</a></td>
+                            <td><a class="btn btn-danger" onClick={e=>this.onSubmit(e,car.id)}>Remove Car</a></td>
                         </tr>
                         )}
                     </tbody>
@@ -117,6 +131,7 @@ class AllCars extends Component {
     }
     AllCars.propTypes = {
         getCar: PropTypes.func.isRequired,
+        deleteCar: PropTypes.func.isRequired,
         errors: PropTypes.object.isRequired,
         security: PropTypes.object.isRequired
     };
@@ -128,5 +143,5 @@ class AllCars extends Component {
       
     export default withRouter(connect(
         mapStateToProps,
-        { getCar}
+        { getCar,deleteCar}
     )(AllCars));

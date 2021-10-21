@@ -8,17 +8,22 @@ import { bookingCancelled, bookingReturn } from "../../../actions/bookingActions
 import { getBookings } from "../../../actions/bookingActions";
 import HeaderAdmin from "./HeaderAdmin";
 import { getCar } from "../../../actions/carActions";
+import axios from "axios";
 
 class AllBookings extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            bookings : JSON.parse(localStorage.allBookings)
+            bookings : []
         }
     }
 
     componentDidMount() {
+
+        axios.get("http://localhost:8080/api/bookings").then((response) => {
+        this.setState({ bookings: response.data })
+        });
 
         const link1 = document.createElement("link")
               link1.rel="stylesheet"

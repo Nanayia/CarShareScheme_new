@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 import store from "../../../store";
 import { getUser } from "../../../actions/userActions";
 import { getBookings } from "../../../actions/bookingActions";
+import { logout } from '../../../actions/securityActions';
 
 class Header extends Component {
 
@@ -17,7 +18,11 @@ class Header extends Component {
         }
         this.props.getBookings(Bookings, this.props.history)
     }
-
+    
+    Logout(e){
+        e.preventDefault();
+		this.props.logout();
+	}
 
 
 
@@ -55,12 +60,12 @@ class Header extends Component {
                       </a>
                   </li>            
                   <li class="dropdown">
-                      <a href="/" class="dropdown-toggle" data-toggle="dropdown">{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}<b class="fa fa-angle-down"></b></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{store.getState().security.user.username.charAt(0).toUpperCase() + store.getState().security.user.username.slice(1)}<b class="fa fa-angle-down"></b></a>
                       <ul class="dropdown-menu">
-                          <li><a href="#" class="Edit_Profile"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>
-                          <li><a href="#" class="Change_Pass"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
+                          <li><a href="/bookings" class="Edit_Profile"><i class="fa fa-fw fa-user"></i> Current Orders</a></li>
+                          <li><a href="/edit" class="Change_Pass"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
                           <li class="divider"></li>
-                          <li><a href="../Login.html"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+                          <li><a href="#" onClick={e=>this.Logout(e)}><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
                       </ul>
                   </li>
               </ul>
@@ -88,6 +93,7 @@ class Header extends Component {
 Header.propTypes = {
     getBookings: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
 };
@@ -99,5 +105,5 @@ const mapStateToProps = state => ({
   
 export default withRouter(connect(
     mapStateToProps,
-    { getUser,getBookings }
+    { getUser,getBookings,logout }
 )(Header));

@@ -3,21 +3,30 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import store from "../../../store";
-import { getUsers } from "../../../actions/userActions";
+import { deleteUser } from "../../../actions/securityActions";
 import HeaderAdmin from "./HeaderAdmin";
+import axios from "axios";
 
 class AdminDashboard extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            users : JSON.parse(localStorage.users)
+            users : []
         }
+    }
+
+    onSubmit(e,id){
+        this.props.deleteUser(id,this.props.history)
     }
 
     
 
     componentDidMount() {
+
+        axios.get("http://localhost:8080/api/users").then((response) => {
+        this.setState({ users: response.data })
+        });
 
         const link1 = document.createElement("link")
               link1.rel="stylesheet"
@@ -88,7 +97,7 @@ class AdminDashboard extends Component {
                             <td scope="row">{user.lastName}</td>
                             <td scope="row">{user.email}</td>
                             <td scope="row">{user.accountType}</td>
-                            <td><a class="btn btn-danger" onClick={e=>this.onSubmitCar(e,user.id)}>Remove Account</a></td>
+                            <td><a class="btn btn-danger" onClick={e=>this.onSubmit(e,user.id)}>Remove Account</a></td>
                         </tr>
                         )}
                     </tbody>
@@ -118,7 +127,7 @@ class AdminDashboard extends Component {
 
 }
 AdminDashboard.propTypes = {
-    getUsers: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
 };
@@ -130,5 +139,5 @@ const mapStateToProps = state => ({
   
 export default withRouter(connect(
     mapStateToProps,
-    { getUsers}
+    { deleteUser}
 )(AdminDashboard));

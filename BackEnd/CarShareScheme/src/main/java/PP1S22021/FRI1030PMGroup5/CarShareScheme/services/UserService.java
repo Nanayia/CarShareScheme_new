@@ -66,7 +66,7 @@ public class UserService {
     }
 
     @Transactional // add username and password
-    public void updateUser(Long id, String firstName, String lastName, String email, String phone, String abn) {
+    public void updateUser(Long id, String firstName, String lastName, String email, String password) {
         User user = userRepository.findById(id).orElseThrow(() ->
                 new IllegalStateException("User with Id " + id + " does not exist"));
 
@@ -82,7 +82,8 @@ public class UserService {
             }
             user.setEmail(email);
         }
+        password = bCryptPasswordEncoder.encode(password);
+        user.setPassword(password);
+
     }
-
-
 }

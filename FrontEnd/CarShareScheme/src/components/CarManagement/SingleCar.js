@@ -73,7 +73,6 @@ class SingleCar extends Component{
             carPrice: this.state.car.carPrice,
             pickUp: this.state.pickUp,
             dropOff: this.state.dropOff,
-            carPrice: this.state.car.carPrice,
             pickupDate: this.state.pickupDate,
             dropoffDate: "",
             status:"Return",
@@ -131,21 +130,21 @@ class SingleCar extends Component{
               <span>{this.state.car.carColor}</span>
             </div>
             <div class="cable-config">
-              <span>Pick up location</span>
+              <span>Pickup location: </span>
               <input 
                             type='text' 
                             name='pickUp'
-                            placeholder='Enter your pick up location'
+                            placeholder='Enter the location'
                             value={this.state.pickUp}
                             onChange={this.onChange}
                             /> 
               </div>
               <div class="cable-config">
-              <span>Drop off location</span>
+              <span>Dropoff location: </span>
               <input 
                             type='text' 
                             name='dropOff'
-                            placeholder='Enter your drop off location'
+                            placeholder='Enter the location'
                             value={this.state.dropOff}
                             onChange={this.onChange}
                             /> 

@@ -9,6 +9,17 @@ import { getBookings } from "../../../actions/bookingActions";
 import Header from "./Header";
 import { getCar } from "../../../actions/carActions";
 
+
+const paypalOptions = {
+    clientId: '12345',
+    intent: 'capture'
+  }
+ 
+  const buttonStyles = {
+    layout: 'vertical',
+    shape: 'rect',
+  }
+
 class Bookings extends Component {
 
     constructor(props) {
@@ -18,7 +29,12 @@ class Bookings extends Component {
         }
     }
 
+
+        
+
     componentDidMount() {
+
+        
 
         const link1 = document.createElement("link")
               link1.rel="stylesheet"
@@ -94,6 +110,7 @@ class Bookings extends Component {
                             <th scope="col">Status</th>
                             <th scope="col">Cancellation</th>
                             <th scope="col">Review</th>
+                            <th scope="col">Payment</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -117,6 +134,7 @@ class Bookings extends Component {
                             <td><a class="btn btn-danger" disabled>Cancel</a></td>
                             }
                             <td><a class="btn btn-primary" onClick={e=>this.onSubmitCar(e,booking.carId)}>View</a></td>
+                            <td><a href="/Transaction" class="btn btn-primary">Pay</a></td>
                         </tr>
                         )}
                     </tbody>

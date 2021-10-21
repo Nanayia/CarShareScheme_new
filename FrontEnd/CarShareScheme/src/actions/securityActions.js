@@ -138,3 +138,13 @@ export const editUser = (id,user,history) => async dispatch => {
     history.push("/")
   }
 }
+
+export const deleteUser = (id, history) => async dispatch => {
+  try {
+    await axios.delete(`http://localhost:8080/api/users/delete`,id)
+    history.push("/AdminDashboard")
+    alert("Deleted the user")
+  }catch (error) {
+    alert(error)
+  }
+}

@@ -6,15 +6,21 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import { logout } from '../../actions/securityActions';
 import { getUsers } from "../../actions/userActions";
+import { queryCars } from "../../actions/carActions";
 
+const initialState = {
+    query: ""
+}
 
  class Header extends Component {
      
 
 	constructor(props) {
         super(props)
+        this.state = initialState
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.onSearch = this.onSearch.bind(this)
     }
 
 	onSubmit(e){
@@ -22,10 +28,52 @@ import { getUsers } from "../../actions/userActions";
 		this.props.logout();
 	}
 
+    onSearch(e){
+        e.preventDefault();
+
+        if (this.state.query.trim()) {
+            const CarQuery = {
+                query: this.state.query
+            }
+            this.props.queryCars(CarQuery, this.props.history)
+        }
+    }
+
+    onSearchTo(e,to){
+        e.preventDefault();
+
+        if (to === "Mercedes") {
+            const CarQuery = {
+                query: "Mercedes"
+            }
+            this.props.queryCars(CarQuery, this.props.history)
+        }
+        if (to === "Civic") {
+            const CarQuery = {
+                query: "Civic"
+            }
+            this.props.queryCars(CarQuery, this.props.history)
+        }
+        if (to === "Toyota") {
+            const CarQuery = {
+                query: "Toyota"
+            }
+            this.props.queryCars(CarQuery, this.props.history)
+        }
+        if (to === "Honda") {
+            const CarQuery = {
+                query: "Honda"
+            }
+            this.props.queryCars(CarQuery, this.props.history)
+        }
+    }
+
+
+
     onSubmitDashboard(e){
         e.preventDefault();
 		if (store.getState().security.user.accountType === "Admin") {
-            this.props.getUsers(this.props.history) 
+            this.props.history.push("/AdminDashboard")
         }else{
             this.props.history.push("/UserDashboard")
         }
@@ -103,7 +151,20 @@ import { getUsers } from "../../actions/userActions";
                                 <div class="logo"><a href="/">CarShare</a></div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right"></div>
+                        <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+                        <div class="header_search">
+                                <div class="header_search_content">
+                                    <div class="header_search_form_container">
+                                        <form onSubmit={this.onSearch} class="header_search_form clearfix"> 
+                                        <input id="query" name="query" type="text" value={this.state.query} onChange={this.onChange} class="header_search_input" placeholder="Search for products..."/>
+                                        <button type="submit" id="search-btn" class="header_search_button trans_300" ><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png" alt=""/></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                         <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                             <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                                 <div class="wishlist d-flex flex-row align-items-center justify-content-end">
@@ -139,11 +200,11 @@ import { getUsers } from "../../actions/userActions";
                                         <li><a href="/" class=" nav-link active">Home<i class="fas fa-chevron-down"></i></a></li>
                                         <li class="hassubs"> <a href="#">Car Brands<i class="fas fa-chevron-down"></i></a>
                                             <ul>
-                                                <li> <a href="#" id="mercedes">Mercedes<i class="fas fa-chevron-down"></i></a>
+                                                <li> <a href="#" id="mercedes" onClick={e=>this.onSearchTo(e,"Mercedes")}>Mercedes<i class="fas fa-chevron-down"></i></a>
                                                 </li>
-                                                <li><a href="#" id="toyota">Toyota<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#" id="civic">Civic<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#" id="honda">Honda<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="#" id="toyota" onClick={e=>this.onSearchTo(e,"Toyota")}>Toyota<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="#" id="civic" onClick={e=>this.onSearchTo(e,"Civic")}>Civic<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="#" id="honda" onClick={e=>this.onSearchTo(e,"Honda")}>Honda<i class="fas fa-chevron-down"></i></a></li>
                                             </ul>
                                         </li>
                                         <li><a href="/ContactUs">Contact<i class="fas fa-chevron-down"></i></a></li>
@@ -170,6 +231,7 @@ Header.propTypes = {
     getUser: PropTypes.func.isRequired,
 	logout: PropTypes.func.isRequired,
     getUsers: PropTypes.func.isRequired,
+    queryCars: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
   };
@@ -181,5 +243,5 @@ Header.propTypes = {
   
   export default withRouter(connect(
     mapStateToProps,
-    {logout,getUser,getUsers }
+    {logout,getUser,getUsers,queryCars }
   )(Header));

@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import Landing from "./components/Layout/Landing";
+import Transaction from "./components/Layout/Transaction";
+import Search from "./components/Layout/Search";
 import ContactUs from "./components/Layout/ContactUS";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
@@ -54,6 +56,8 @@ class App extends Component {
            
             <Route exact path="/" component={Landing} />
             <Route exact path="/car" component={SingleCar} />
+            <Route exact path="/Transaction" component={Transaction} />
+            <Route exact path="/Search" component={Search} />
             <Route exact path="/ContactUs" component={ContactUs} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
