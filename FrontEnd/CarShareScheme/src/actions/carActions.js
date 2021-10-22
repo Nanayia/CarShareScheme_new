@@ -62,9 +62,10 @@ export const queryCars = (query, history) => async dispatch => {
 
 export const deleteCar = (id, history) => async dispatch => {
     try {
-      await axios.delete(`http://localhost:8080/api/cars/${id}`,id)
-      history.push("/AllCar")
+      await axios.delete(`http://localhost:8080/api/cars/${id}`)
+      history.push("/AllCars")
       alert("Deleted the car")
+      window.location.reload()
     }catch (error) {
       alert(error)
     }

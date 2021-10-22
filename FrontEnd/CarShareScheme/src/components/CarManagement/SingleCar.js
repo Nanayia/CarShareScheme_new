@@ -63,6 +63,7 @@ class SingleCar extends Component{
 
     onSubmit(e){
         e.preventDefault();
+        if (store.getState().security.validToken) {
         const newBooking = {
             userID: store.getState().security.user.id,
             username: store.getState().security.user.username,
@@ -78,6 +79,12 @@ class SingleCar extends Component{
             status:"Return",
         }
         this.props.createNewBooking(newBooking, this.props.history);
+      }else
+      {
+        alert("Please login")
+        this.props.history.push("/login")
+        window.location.reload()
+      }
 
     }
 

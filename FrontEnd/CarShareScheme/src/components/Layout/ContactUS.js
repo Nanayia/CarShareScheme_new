@@ -74,17 +74,17 @@ class ContactUs extends Component {
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content.</p>
 
                 <div class="find-widget">
-                 Company:  <a href="https://hostriver.ro">HostRiver</a>
+                 Company:  <a href="https://hostriver.ro">GROUP 6</a>
                 </div>
                 <div class="find-widget">
-                 Address: <a href="#">4435 Berkshire Circle Knoxville</a>
+                 Address: <a href="#">xxxxxxx</a>
                 </div>
                 <div class="find-widget">
-                  Phone:  <a href="#">+ 879-890-9767</a>
+                  Phone:  <a href="#">+ 888-888-8888</a>
                 </div>
                 
                 <div class="find-widget">
-                  Website:  <a href="https://uny.ro">www.uny.ro</a>
+                  Website:  <a href="https://uny.ro">www.xxxxxxx.ro</a>
                 </div>
                 <div class="find-widget">
                    Program: <a href="#">Mon to Sat: 09:30 AM - 10.30 PM</a>
