@@ -56,7 +56,6 @@ export const bookingCancelled = (bookingId, history) => async dispatch => {
         payload: res.data
       });
       alert("Cancelled")
-      history.push("/bookings")
       window.location.reload()
   } catch (error) {
     alert("Cancelled error")
@@ -73,7 +72,6 @@ export const bookingReturn = (bookingId, history) => async dispatch => {
         payload: res.data
       });
       alert("Returned")
-      history.push("/bookings")
       window.location.reload()
   } catch (error) {
     alert("Return error")
